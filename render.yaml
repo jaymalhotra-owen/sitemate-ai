@@ -1,0 +1,34 @@
+# Render Blueprint for SiteMate AI: one free web service (Docker) + one free Postgres.
+# In Render: New → Blueprint → pick this repo. Render asks for the `sync: false` values
+# (GROQ_API_KEY, ADMIN_PASSWORD) during setup; they're never stored in the repo.
+# PUBLIC_URL isn't needed: the app falls back to RENDER_EXTERNAL_URL, which Render sets.
+
+services:
+  - type: web
+    name: sitemate-ai
+    runtime: docker
+    plan: free
+    region: ohio
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SITEMATE_LLM_PROVIDER
+        value: groq
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-120b
+      - key: GROQ_API_KEY
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sitemate-db
+          property: connectionString
+
+databases:
+  - name: sitemate-db
+    plan: free
+    region: ohio
+    databaseName: sitemate
+    user: sitemate

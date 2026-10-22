@@ -1,0 +1,40 @@
+# Fly.io config for SiteMate AI. Secrets (GROQ_API_KEY, ADMIN_PASSWORD, …) are set with
+# `fly secrets set`, never here.
+app = "sitemate-ai"
+primary_region = "yyz"
+
+[build]
+
+[env]
+  NODE_ENV = "production"
+  HOST = "0.0.0.0"
+  PORT = "8080"
+  SITEMATE_DATA_DIR = "/data"
+  SITEMATE_LLM_PROVIDER = "groq"
+  GROQ_MODEL = "openai/gpt-oss-120b"
+  # PUBLIC_URL is set at deploy time to https://<app>.fly.dev (or your custom domain).
+
+# Chatbots are stored in /data/bots.json, so they survive restarts and deploys.
+# A volume belongs to one Machine: keep this app at a single Machine until storage
+# moves to Postgres (see README "Taking it to production").
+[mounts]
+  source = "sitemate_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [[http_service.checks]]
+    method = "GET"
+    path = "/healthz"
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "10s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"

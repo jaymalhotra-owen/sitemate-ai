@@ -1,0 +1,23 @@
+{
+  "name": "sitemate-ai",
+  "version": "0.1.0",
+  "description": "SiteMate AI — turn any website into a grounded AI chatbot (MVP prototype)",
+  "type": "module",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "dev": "node --env-file-if-exists=.env --watch server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=22.9"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.135.0",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.11"
+  }
+}

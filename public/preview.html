@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Widget test page — {{SITE}}</title>
+<style>
+  body{margin:0;font:16px/1.6 system-ui,-apple-system,'Segoe UI',sans-serif;background:#f4f5f8;color:#1b2033}
+  .bar{background:#1b2033;color:#e8eaf3;font-size:12.5px;text-align:center;padding:8px 16px}
+  .bar a{color:#a9b6ff}
+  main{max-width:760px;margin:0 auto;padding:56px 20px 120px}
+  .ph{height:14px;border-radius:7px;background:#e3e6ee;margin:12px 0}
+  h1{font-size:clamp(28px,5vw,40px);letter-spacing:-.03em;margin:0 0 8px}
+  .hint{margin-top:36px;padding:16px 18px;border:1px dashed #c7cbe0;border-radius:12px;background:#fff;font-size:14px;color:#4a5170}
+  code{font-size:13px;background:#eef0f6;padding:2px 6px;border-radius:5px}
+</style>
+</head>
+<body>
+<div class="bar">Install test page served by SiteMate. Your widget is embedded below exactly as it would be on <a href="{{ORIGIN}}" target="_blank" rel="noopener">{{ORIGIN}}</a>.</div>
+<main>
+  <h1>{{SITE}}</h1>
+  <p>This stand-in page loads the real embed snippet. Click the chat bubble to talk to the chatbot trained on your site.</p>
+  <div class="ph" style="width:92%"></div><div class="ph" style="width:84%"></div><div class="ph" style="width:88%"></div><div class="ph" style="width:60%"></div>
+  <div class="hint">Embed code used on this page: <code>&lt;script src="/widget.js" data-bot-id="{{BOT_ID}}" async&gt;&lt;/script&gt;</code></div>
+</main>
+<script src="/widget.js" data-bot-id="{{BOT_ID}}" async></script>
+</body>
+</html>
