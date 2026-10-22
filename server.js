@@ -266,7 +266,7 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, HOST, () => {
   const llm = llmStatus();
   console.log(`\n  SiteMate AI running at ${PUBLIC_URL}`);
-  console.log(`  Dashboard login: ${{ password: 'password required (ADMIN_PASSWORD)', open: 'none (local dev; set ADMIN_PASSWORD to require one)', locked: 'LOCKED: set ADMIN_PASSWORD to use the dashboard' }[auth.authMode()]}`);
+  console.log(`  Dashboard login: ${{ password: 'password required (ADMIN_PASSWORD)', open: process.env.DASHBOARD_PUBLIC === '1' ? 'NONE: DASHBOARD_PUBLIC=1, anyone with the URL can manage chatbots' : 'none (local dev; set ADMIN_PASSWORD to require one)', locked: 'LOCKED: set ADMIN_PASSWORD to use the dashboard' }[auth.authMode()]}`);
   console.log(`  Answer engine: ${llm.enabled ? `${llm.label} (${llm.model})` : `retrieval-only${llm.sdkError ? ` — ${llm.sdkError}` : ' (set GROQ_API_KEY or ANTHROPIC_API_KEY in .env)'}`}`);
   console.log(`  Storage: ${store.backend() === 'postgres' ? 'Postgres (DATABASE_URL)' : 'JSON file (SITEMATE_DATA_DIR)'}\n`);
 });
